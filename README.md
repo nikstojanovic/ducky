@@ -29,3 +29,7 @@ You need to syncronize baud rate in Arduino setup, Windows port setup and serial
 Default baud rate is fairly slow, 9600bps, to prevent data glitches. Default COM port is COM2.
 
 Detailed Arduino setup can be found in ./arduino/ultrasonic/README.md
+
+## Troubleshooting
+
+If you keep getting numbers instead of strings from Arduino writing to serial port, you should use double quotations "some_string" instead of single quotations 'some_string'
