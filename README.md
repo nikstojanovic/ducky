@@ -32,4 +32,6 @@ Detailed Arduino setup can be found in ./arduino/ultrasonic/README.md
 
 ## Troubleshooting
 
-If you keep getting numbers instead of strings from Arduino writing to serial port, you should use double quotations "some_string" instead of single quotations 'some_string'
+1. If you keep getting numbers instead of strings from Arduino writing to serial port, you should use double quotations "some_string" instead of single quotations 'some_string'
+
+2. Error: Opening COM2: File not found - your device isn't present at COM port
