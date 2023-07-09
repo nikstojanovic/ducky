@@ -1,23 +1,9 @@
-const { ReadlineParser } = require('@serialport/parser-readline')
-const { SerialPort } = require('serialport')
 const ws = require('ws');
+const parser = require('./serial');
 
-const serialPort = 'COM2';
-const baudRate = 9600;
-const webSocketPort = 443;
+const WEB_SOCKET_PORT = 443;
 
-// SERIAL CONNECTION PART
-const port = new SerialPort({
-    path: serialPort,
-    baudRate: baudRate, // pair this value to windows com port setting and arduino setting
-});
-
-const parser = port.pipe(new ReadlineParser({ delimiter: '\r\n' }));
-
-port.pipe(parser);
-
-// WEBSOCKET PART
-const server = new ws.WebSocketServer({ port: webSocketPort });
+const server = new ws.WebSocketServer({ port: WEB_SOCKET_PORT });
 
 server.on('connection', (socket) => {
     parser.on('data', function(data) {
