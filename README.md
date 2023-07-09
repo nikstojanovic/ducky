@@ -1,5 +1,13 @@
 # Arduino Pro Micro serial connection web server (NodeJS) and client (Vanilla JS)
 
+## Project
+
+<br>
+
+A simple JS game which uses Arduino ultrasonic sensor HC-SR04 as a controller. Position the sensor right below your squatting position. Duck image will be displayed in random periods between 1 and 3 seconds. When image appears, you will reset the timer and hide the duck image by squatting.
+
+<br>
+
 ## Installation
 
 <br>
@@ -17,6 +25,8 @@ To run the server, run:
 <br>
 
 Game is available at http://localhost:3000/ in the browser after the server is started.
+
+<br>
 
 ## Setup
 
