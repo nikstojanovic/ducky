@@ -1,19 +1,47 @@
 const http = require('http');
 const fs = require('fs');
+const url = require('url');
+const path = require('path');
+const extensions = require('./lib/constants/fileExtensions');
 
 require('./webSocket');
 
 const PORT = 3000;
 
-const FILE_READ_OPTIONS = { encoding: 'utf8', flag: 'r' }
+const baseClientDirectory = './client';
 
-const index = fs.readFileSync('./client/index.html', FILE_READ_OPTIONS);
-const js = fs.readFileSync('./client/script.js', FILE_READ_OPTIONS);
-const css = fs.readFileSync('./client/style.css', FILE_READ_OPTIONS);
-
-const app = http.createServer(function(req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.end(index.replace('/* SERVER_INJECT_CSS */', css).replace('/* SERVER_INJECT_JS */', js));
+const sendFile = (pathname, res, ext) => fs.readFile(pathname, function(err, data){
+    if(err){
+        res.statusCode = 500;
+        res.end(`Error getting the file: ${err}.`);
+    } else {
+        res.setHeader('Content-type', extensions[ext] || 'text/plain' );
+        res.end(data);
+    }
 });
+
+const app = http.createServer(function (req, res) {
+    const parsedUrl = url.parse(req.url);
+    const parsedPathName = parsedUrl.pathname;
+    let pathname = baseClientDirectory + parsedPathName;
+    const ext = path.parse(pathname).ext;
+
+    if (parsedPathName === '/') {
+        sendFile(`${pathname}index.html`, res, '.html');
+    }
+
+    fs.open(pathname, 'r', function (err, fd) {
+        if (err) {
+            if (err.code === "ENOENT") {
+                console.error('myfile does not exist');
+                return;
+            } else {
+                throw err;
+            }
+        } else {
+            sendFile(pathname, res, ext);
+        }
+    });
+})
 
 app.listen(PORT);
