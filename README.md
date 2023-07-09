@@ -16,13 +16,13 @@ To run the server, run:
 
 <br>
 
-To start the client, open up ./client/index.html in the browser after the server is started.
+Game is available at http://localhost:3000/ in the browser after the server is started.
 
 ## Setup
 
 <br>
 
-Web server communicates with web client by means of Web Socket. Default port is 443. This setting should be synchronized between server ./index.js and client ./client/script.js
+Web server communicates with web client by means of Web Socket. Default port is 443. This setting should be synchronized between server ./server/webSocket.js and client ./client/js/script.js
 
 You need to syncronize baud rate in Arduino setup, Windows port setup and serial port setup in index.js file of web server. COM port should also be synchronized between all mentioned settings.
 
